@@ -1,0 +1,510 @@
+:root {
+    --fondo-principal: #1B1931;
+    --fondo-secundario: #44174E;
+    --detalle: #662249;
+    --acento: #A34054;
+    --especial: #ED9E59;
+    --texto-suave: #E9BCB9;
+}
+
+/* Fondo animado para que la app se vea más viva */
+body {
+    background: linear-gradient(135deg, var(--fondo-principal) 60%, var(--detalle) 100%);
+    min-height: 100vh;
+    animation: fondoAnimado 12s ease-in-out infinite alternate;
+}
+
+@keyframes fondoAnimado {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 100% 50%; }
+}
+
+/* Centra todo en la pantalla */
+.contenedor-principal {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+/* Caja principal donde va todo */
+.contenedor,
+#panel-principal {
+    background: var(--fondo-secundario);
+    border: 2.5px solid var(--especial);
+    box-shadow: 0 12px 36px #1B1931cc, 0 2px 1px #ED9E5955;
+    width: 100%;
+    max-width: 480px;
+    min-width: 260px;
+    margin: 4vw auto;
+    padding: 4vw 4vw 3vw 4vw;
+    border-radius: 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    box-sizing: border-box;
+    transition: filter 0.3s;
+    z-index: 1;
+}
+
+/* Ventana emergente que aparece encima de todo */
+.contenedor-pasos {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 500;
+    background: var(--especial);
+    color: var(--fondo-principal);
+    border-radius: 22px;
+    box-shadow: 0 8px 32px #1B1931cc, 0 1.5px 0.5px #ED9E5922;
+    padding: 4vw 4vw 3vw 4vw;
+    min-width: 260px;
+    max-width: 480px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    border: 3px solid var(--acento);
+    box-sizing: border-box;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s;
+}
+.contenedor-pasos.mostrar {
+    opacity: 1;
+    pointer-events: all;
+}
+
+/* Cuando algo está desenfocado, se ve borroso y no se puede usar */
+.desenfocado {
+    filter: blur(6px) brightness(0.8);
+    pointer-events: none;
+    transition: filter 0.3s;
+}
+
+/* Para esconder cosas que no queremos mostrar */
+.oculto {
+    display: none !important;
+}
+
+/* Títulos y textos más bonitos */
+h1 {
+    color: var(--especial);
+    text-align: center;
+    margin-bottom: 18px;
+    font-size: 2.1em;
+    letter-spacing: 1px;
+    font-weight: 700;
+    text-shadow: 0 2px 8px #1B1931cc;
+}
+.contenedor-pasos h2 {
+    color: var(--acento);
+    text-align: center;
+    margin-bottom: 18px;
+    font-size: 1.5em;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+form {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+}
+#entrada-tarea, #entrada-paso, #campo-celular {
+    flex: 1 1 0;
+    min-width: 0;
+    padding: 12px 14px;
+    border: 1.5px solid var(--detalle);
+    border-radius: 8px;
+    background: var(--detalle);
+    color: var(--texto-suave);
+    font-size: 1.08em;
+    transition: border 0.2s, background 0.2s;
+    box-shadow: 0 1px 4px #1B193133;
+}
+#entrada-tarea:focus, #entrada-paso:focus, #campo-celular:focus {
+    outline: none;
+    border: 1.5px solid var(--especial);
+    background: var(--fondo-secundario);
+}
+form button {
+    background: var(--acento);
+    color: var(--texto-suave);
+    border: none;
+    border-radius: 8px;
+    padding: 12px 18px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 1em;
+    box-shadow: 0 2px 8px #A3405440;
+    transition: background 0.2s, color 0.2s, transform 0.1s;
+}
+form button:hover, form button:focus {
+    background: var(--especial);
+    color: var(--fondo-secundario);
+    transform: translateY(-2px) scale(1.04);
+}
+#tipo-tarea {
+    flex: 0 0 110px;
+    min-width: 90px;
+    max-width: 130px;
+    background: var(--detalle);
+    color: var(--texto-suave);
+    border: 1.5px solid var(--detalle);
+    border-radius: 8px;
+    padding: 12px 14px;
+    font-size: 1.08em;
+    font-weight: 600;
+    box-shadow: 0 1px 4px #1B193133;
+    transition: border 0.2s, background 0.2s;
+    outline: none;
+    cursor: pointer;
+}
+#tipo-tarea:focus {
+    border: 1.5px solid var(--especial);
+    background: var(--fondo-secundario);
+}
+#lista-tareas {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 10px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+#lista-tareas li {
+    background: var(--detalle);
+    border: 1.5px solid var(--especial);
+    color: var(--texto-suave);
+    padding: 12px 14px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 1px 6px #1B193133;
+    font-size: 1.05em;
+    transition: background 0.2s, transform 0.1s;
+}
+#lista-tareas li:hover {
+    background: var(--acento);
+    color: var(--especial);
+    border: 1.2px solid var(--especial);
+    transform: scale(1.015);
+}
+/* Botón para borrar tareas, bien llamativo */
+.eliminar-btn {
+    background: linear-gradient(90deg, #A34054 60%, #ED9E59 100%);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 18px;
+    font-size: 1em;
+    font-weight: 600;
+    margin-left: 14px;
+    box-shadow: 0 2px 8px #A3405440;
+    transition: background 0.2s, color 0.2s, transform 0.1s;
+}
+.eliminar-btn:hover, .eliminar-btn:focus {
+    background: linear-gradient(90deg, #ED9E59 60%, #A34054 100%);
+    color: var(--fondo-secundario);
+    transform: scale(1.08);
+}
+#mensaje {
+    margin: 10px 0 0 0;
+    color: var(--especial);
+    text-align: center;
+    min-height: 22px;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+    font-size: 1.08em;
+    text-shadow: 0 1px 4px #1B193133;
+}
+#motivacion {
+    margin-top: 10px;
+    color: var(--especial);
+    text-align: center;
+    font-style: italic;
+    min-height: 20px;
+    font-size: 1em;
+    opacity: 0.92;
+    text-shadow: 0 1px 4px #1B193133;
+    animation: aparecerMotivacion 1s;
+}
+
+@keyframes aparecerMotivacion {
+    from { opacity: 0; transform: translateY(10px);}
+    to { opacity: 1; transform: translateY(0);}
+}
+
+/* Cada paso de la tarea se ve ordenado y con espacio */
+#lista-pasos li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+    background: var(--detalle);
+    border-radius: 6px;
+    padding: 8px 10px;
+}
+/* Botones para marcar pasos, con colores distintos */
+.boton-paso {
+    background: linear-gradient(90deg, #4CAF50 60%, #A34054 100%);
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    font-size: 1.2em;
+    cursor: pointer;
+    margin-left: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 8px #A3405440;
+    transition: background 0.2s, transform 0.1s;
+}
+.boton-completar {
+    background: linear-gradient(90deg, #4CAF50 60%, #43e97b 100%);
+}
+.boton-saltar {
+    background: linear-gradient(90deg, #A34054 60%, #ED9E59 100%);
+}
+.boton-paso:hover, .boton-paso:focus {
+    filter: brightness(1.15);
+    transform: scale(1.12);
+}
+
+/* Barra de desplazamiento personalizada para que combine con la app */
+::-webkit-scrollbar {
+    width: 10px;
+    background: var(--fondo-principal);
+}
+::-webkit-scrollbar-thumb {
+    background: var(--acento);
+    border-radius: 8px;
+}
+
+/* Cuando haces clic en un input, se ve con un brillito */
+input:focus, select:focus, button:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px var(--especial), 0 2px 8px #ED9E5940;
+}
+
+/* Botón para cerrar ventanas, bien visible */
+#cerrar-detalle {
+    margin-top: 10px;
+    background: linear-gradient(90deg, var(--acento) 60%, var(--especial) 100%);
+    color: var(--texto-suave);
+    border: none;
+    border-radius: 10px;
+    padding: 12px 0;
+    font-size: 1.1em;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 2px 8px #A3405440;
+    transition: background 0.2s, color 0.2s, transform 0.1s;
+    width: 100%;
+}
+#cerrar-detalle:hover, #cerrar-detalle:focus {
+    background: linear-gradient(90deg, var(--especial) 60%, var(--acento) 100%);
+    color: var(--fondo-secundario);
+    transform: scale(1.04);
+}
+
+/* Botón para exportar la lista a JSON */
+#exportar-json {
+    background: linear-gradient(90deg, var(--especial) 60%, var(--acento) 100%);
+    color: var(--fondo-secundario);
+    border: none;
+    border-radius: 10px;
+    padding: 12px 22px;
+    font-weight: 700;
+    font-size: 1em;
+    box-shadow: 0 2px 8px #ED9E5940;
+    transition: background 0.2s, color 0.2s, transform 0.1s;
+    margin-right: 10px;
+    flex-shrink: 0;
+}
+#exportar-json:hover, #exportar-json:focus {
+    background: linear-gradient(90deg, var(--acento) 60%, var(--especial) 100%);
+    color: var(--texto-suave);
+    transform: translateY(-2px) scale(1.05);
+}
+
+/* Caja de búsqueda con estilo moderno */
+#busqueda {
+    padding: 12px 16px;
+    border: 1.5px solid var(--detalle);
+    border-radius: 10px;
+    background: var(--detalle);
+    color: var(--texto-suave);
+    font-size: 1em;
+    font-weight: 500;
+    box-shadow: 0 1px 4px #1B193133;
+    transition: border 0.2s, background 0.2s, box-shadow 0.2s;
+    outline: none;
+    flex: 1 1 180px;
+    min-width: 120px;
+    max-width: 220px;
+}
+#busqueda:focus {
+    border: 1.5px solid var(--especial);
+    background: var(--fondo-secundario);
+    box-shadow: 0 2px 8px #ED9E5940;
+}
+
+/* Agrupa la búsqueda y el botón de exportar en una sola línea */
+.acciones {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+/* Sugerencias que aparecen al buscar */
+#busqueda-autocomplete-list {
+    position: absolute;
+    background: var(--detalle);
+    border: 1.5px solid var(--especial);
+    border-radius: 8px;
+    box-shadow: 0 4px 16px #1B1931cc;
+    z-index: 1000;
+    max-height: 180px;
+    overflow-y: auto;
+    width: 90%;
+    left: 5%;
+    top: 100%;
+    margin-top: 4px;
+}
+#busqueda-autocomplete-list div {
+    padding: 10px 16px;
+    cursor: pointer;
+    color: var(--texto-suave);
+    transition: background 0.2s, color 0.2s;
+}
+#busqueda-autocomplete-list div:hover, #busqueda-autocomplete-list .autocomplete-active {
+    background: var(--acento);
+    color: var(--especial);
+}
+
+/* Transiciones suaves para que los paneles no cambien de golpe */
+.contenedor, .contenedor-pasos {
+    transition: box-shadow 0.3s, background 0.3s, border 0.3s;
+}
+
+/* Cuando pasas el mouse por los pasos, cambian de color */
+#lista-pasos li:hover {
+    background: var(--acento);
+    color: var(--especial);
+    transition: background 0.2s, color 0.2s;
+}
+
+/* Borde para que todo se vea bien delimitado */
+body, .contenedor-principal, .contenedor, #panel-principal, .contenedor-pasos {
+    border: 2.5px solid var(--especial);
+    box-sizing: border-box;
+}
+
+/* Cuando completas una tarea, se ve más apagada y con un cartel */
+.tarea-completada {
+    opacity: 0.5;
+    position: relative;
+    pointer-events: none;
+    border: 2px solid var(--acento);
+    background: linear-gradient(90deg, #43e97b22 0%, #ED9E5911 100%);
+}
+.cartel-completada {
+    display: inline-block;
+    margin-left: 12px;
+    padding: 4px 12px;
+    background: var(--acento);
+    color: #fff;
+    border-radius: 8px;
+    font-size: 0.98em;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    box-shadow: 0 2px 8px #A3405440;
+    vertical-align: middle;
+}
+
+/* Cuando marcas un paso como hecho, se pone gris y con una línea */
+.paso-completado span {
+    position: relative;
+    display: inline-block;
+    color: #bbb;
+    transition: color 0.4s;
+}
+.paso-completado span::after {
+    content: "";
+    position: absolute;
+    left: 0; top: 50%;
+    width: 0;
+    height: 2px;
+    background: var(--acento);
+    transition: width 0.5s cubic-bezier(.77,0,.18,1.01);
+    z-index: 2;
+}
+.paso-completado.animado span::after {
+    width: 100%;
+}
+
+/* Para que se vea bien en celulares y pantallas chicas */
+@media (max-width: 480px) {
+    h1 {
+        font-size: 1.3em;
+    }
+    .contenedor, .contenedor-pasos {
+        padding: 6vw 2vw 4vw 2vw;
+    }
+}
+
+@media (max-width: 600px) {
+    .contenedor {
+        max-width: 98vw;
+        min-width: 0;
+        padding: 6vw 2vw 4vw 2vw;
+    }
+    .contenedor-pasos {
+        min-width: 0;
+        max-width: 98vw;
+        padding: 6vw 2vw 4vw 2vw;
+    }
+}
+
+/* En pantallas medianas, todo se acomoda en columna y el panel emergente sigue centrado */
+@media (max-width: 900px) {
+    .contenedor-principal {
+        flex-direction: column;
+        align-items: center;
+    }
+    .contenedor-pasos {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+}
+
+/* Botón para guardar el celular, bien vistoso */
+.guardar-celular-btn {
+    background: linear-gradient(90deg, var(--acento) 60%, var(--especial) 100%);
+    color: var(--texto-suave);
+    border: none;
+    border-radius: 10px;
+    padding: 12px 0;
+    font-size: 1.08em;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: 10px;
+    width: 100%;
+    box-shadow: 0 2px 8px #A3405440;
+    transition: background 0.2s, color 0.2s, transform 0.1s;
+}
+.guardar-celular-btn:hover, .guardar-celular-btn:focus {
+    background: linear-gradient(90deg, var(--especial) 60%, var(--acento) 100%);
+    color: var(--fondo-secundario);
+    transform: scale(1.04);
+}

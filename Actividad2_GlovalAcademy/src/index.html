@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestor de Tareas y Contactos</title>
+    <link rel="stylesheet" href="styles/style.css">
+</head>
+<body>
+    <div class="contenedor-principal">
+        <!-- ventana principal -->
+        <div class="contenedor" id="panel-principal">
+            <h1>Gestor de Tareas y Contactos</h1>
+            <form id="formulario-tarea" autocomplete="off">
+                <select id="tipo-tarea">
+                    <option value="tarea">Tarea</option>
+                    <option value="contacto">Contacto</option>
+                </select>
+                <input type="text" id="entrada-tarea" placeholder="Escribe una tarea o contacto" required>
+                <button type="submit">Agregar</button>
+            </form>
+            <ul id="lista-tareas"></ul>
+            <div class="acciones">
+                <input type="text" id="busqueda" placeholder="Buscar...">
+                <button id="exportar-json" type="button">Exportar a JSON</button>
+            </div>
+            <div id="mensaje"></div>
+            <div id="motivacion"></div>
+        </div>
+        <!-- Panel de pasos -->
+        <div class="contenedor-pasos oculto" id="panel-pasos">
+            <h2 id="titulo-detalle"></h2>
+            <!-- El campo de celular se agregará dinámicamente aquí si es contacto -->
+            <form id="formulario-paso" autocomplete="off">
+                <input type="text" id="entrada-paso" placeholder="Agregar paso..." required>
+                <button type="submit">Agregar paso</button>
+            </form>
+            <ul id="lista-pasos"></ul>
+            <button id="cerrar-detalle" type="button">Cerrar</button>
+        </div>
+    </div>
+    <script src="scripts/app.js"></script>
+</body>
+</html>
